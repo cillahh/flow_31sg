@@ -229,12 +229,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             _buildSectionTitle(context, "🌊 FLOW의 4대 가치",
                                 "하나님의 일하심이 흘러가는 4가지 통로"),
                             _buildCategoryGrid(context),
-                            Text(
-                              '  *가치 카드를 터치해 보세요!',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: kPrimaryColor),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  '  *가치 카드를 터치해 보세요!',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: kPrimaryColor,fontSize: 10),
+                                ),
+                              ],
                             ),
                             SizedBox(height: 30 * Util.getScaleHeight(context)), // [유지] 높이 간격
                             Stack(
