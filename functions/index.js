@@ -6,6 +6,11 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
 
+const corsWhitelist = [
+  "https://flow-7049f.web.app", // 기존 라이브 URL
+  "https://flow-hgu-secure.vercel.app", // [!!!] Vercel URL 추가
+];
+
 // SendGrid Mail SDK
 const sgMail = require("@sendgrid/mail");
 

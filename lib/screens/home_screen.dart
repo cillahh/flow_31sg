@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (!_isAudioInitialized) {
       try {
         await _assetsAudioPlayer.open(
-          Audio.network("https://firebasestorage.googleapis.com/v0/b/flow-7049f.firebasestorage.app/o/flow_demo.mp3?alt=media&token=c390d5e8-f07f-4a4f-9f04-9eed79ca5348"),
+          Audio.network("https://firebasestorage.googleapis.com/v0/b/flow-7049f.firebasestorage.app/o/flow_song.mp3?alt=media&token=69808dbb-ae19-4de7-98df-0b9d12303ea5"),
           loopMode: LoopMode.single,
           autoStart: true,
           showNotification: false,
