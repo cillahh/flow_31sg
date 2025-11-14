@@ -147,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontFamily: 'HelveticaRounded',
                 fontSize: 25 * Util.getScaleHeight(context), // [수정]
-                color: Colors.brown,
+                color: kPrimaryColor,
                 fontWeight: FontWeight.w900,
               ),
             ),
