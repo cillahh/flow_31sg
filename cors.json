@@ -1,8 +1,7 @@
 [
   {
     "origin": [
-      "https://flow-7049f.web.app",
-      "https://flow-31sg.vercel.app/"
+      "https://flow-hgu-31sg.vercel.app/"
     ],
     "method": ["GET"],
     "maxAgeSeconds": 3600
