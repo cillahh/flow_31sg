@@ -574,7 +574,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ?.copyWith(color: Colors.black54, fontStyle: FontStyle.italic);
     final descStyle = Theme.of(context)
         .textTheme
-        .bodySmall
+        .bodyMedium
         ?.copyWith(height: 1.3, color: Colors.black87);
 
     return Card(
