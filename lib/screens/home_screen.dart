@@ -349,7 +349,7 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "하나님의 FLOW가 한동의 FLOW가 되길 소망하는,\n 기호 3번 FLOW",
+              "하나님의 FLOW가 한동의 FLOW가 되길 소망하는, 기호 3번 FLOW",
               style: TextStyle(
                   fontFamily: 'HelveticaRounded',
                   fontWeight: FontWeight.w700,
