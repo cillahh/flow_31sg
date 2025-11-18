@@ -349,7 +349,7 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "하나님의 FLOW가 한동의 FLOW가 되길 소망하는, FLOW",
+              "하나님의 FLOW가 한동의 FLOW가 되길 소망하는,\n 기호 3번 FLOW",
               style: TextStyle(
                   fontFamily: 'HelveticaRounded',
                   fontWeight: FontWeight.w700,
@@ -428,7 +428,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 context: context,
                 icon: Icons.groups_outlined, // 연합
                 title: "연합",
-                subtitle: "공동체를 통한 하나님의 일하심",
+                subtitle: "한동 공동체의 연합을 통해 완성될 하나님의 FLOW",
                 color: Colors.orange.shade700,
                 onTap: () => _showMascot(
                     'assets/images/mascot_union.gif'), // 연합 마스코트
@@ -440,7 +440,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 context: context,
                 icon: Icons.handshake_outlined, // 동행
                 title: "동행",
-                subtitle: "하나님과 동행하는 일상",
+                subtitle: "하나님과 동행함을 통해 완성될 하나님의 FLOW",
                 color: Colors.pink.shade600,
                 onTap: () => _showMascot(
                     'assets/images/mascot_accompaniment.gif'), // 동행 마스코트
@@ -456,7 +456,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 context: context,
                 icon: Icons.flag_outlined, // 사명
                 title: "사명",
-                subtitle: "선교적 부르심 안의 한동",
+                subtitle: "각자의 사명을 통하여 완성될 하나님의 FLOW",
                 color: Colors.green.shade700,
                 onTap: () => _showMascot(
                     'assets/images/mascot_mission.gif'), // 사명 마스코트
@@ -468,7 +468,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 context: context,
                 icon: Icons.check_circle_outline, // 순종
                 title: "순종",
-                subtitle: "한 사람으로 시작되는 흐름",
+                subtitle: "한 사람의 순종을 통하여 완성될 하나님의 FLOW",
                 color: Colors.blue.shade800,
                 onTap: () => _showMascot(
                     'assets/images/mascot_obedience.gif'), // 순종 마스코트
@@ -536,7 +536,7 @@ class _HomeScreenState extends State<HomeScreen> {
           title: "FLOW in Our Life",
           subtitle: "우리의 삶 가운데 흘러가기를",
           description:
-          "하나님의 일하심이 한동인의 일상 속에 머물러, 신앙이 삶이 되고, 배움이 예배가 되는 공동체. 각자의 자리에서 하나님과 동행하며 ‘삶의 예배’를 세워가는 것을 목표로 합니다.",
+          "하나님의 일하심이 한동인의 삶에 깊이 스며들길 소망합니다. 신앙이 생활이 되고, 배움이 예배가 되는 공동체를 세우겠습니다.",
         ),
         SizedBox(height: 16 * Util.getScaleHeight(context)), // [수정]
         _buildVisionCard(
@@ -544,15 +544,15 @@ class _HomeScreenState extends State<HomeScreen> {
           title: "FLOW in Handong",
           subtitle: "한동 가운데 흘러가기를",
           description:
-          "한동 전체가 하나님의 뜻 아래 연합 되어, 교수·직원·학생이 서로의 자리에서 동행하는 공동체. 신앙의 본질과 한동의 정체성을 지켜내며, 공동체적 사랑을 실천하는 총학생회.",
+          "한동의 시작처럼, 하나님께서 주신 흐름이 캠퍼스 안에 계속되길 바랍니다. 갈대상자가 물결에 흘러 하나님의 계획을 이뤘듯, 우리의 삶도 순종의 흐름이 되길 바랍니다. 그 속에서 서로를 존중하고 세워주는 공동체 문화를 만들어가겠습니다.",
         ),
         SizedBox(height: 16 * Util.getScaleHeight(context)), // [수정]
         _buildVisionCard(
           context,
           title: "FLOW in All Fields",
-          subtitle: "모든 분야 가운데 흘러가기를",
+          subtitle: "모든 분야와 영역 가운데 흘러가기를",
           description:
-          "하나님의 일하심이 우리의 모든 영역 가운데 자연스럽게 흘러가길 기대합니다. 신앙이 특정 시간이나 공간에 머물지 않고, 우리의 선택과 태도, 일상의 결정 속에서 지속적으로 작동하는 순종의 흐름을 만들어갑니다.",
+          "배움의 울타리를 넘어 모든 분야와 영역 가운데서도 하나님의 뜻이 흘러가길 바랍니다. 각자의 자리에서 주님의 뜻을 실천하며, 세상 속에 하나님의 사랑을 전하는 한동인이 되도록 돕겠습니다.",
         ),
       ],
     );
