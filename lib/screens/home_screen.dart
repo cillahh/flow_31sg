@@ -492,7 +492,7 @@ class _HomeScreenState extends State<HomeScreen> {
         fontWeight: FontWeight.bold, color: Colors.black87);
     final subtitleStyle = Theme.of(context)
         .textTheme
-        .bodySmall
+        .bodyMedium
         ?.copyWith(color: Colors.black54);
 
     return Card(
