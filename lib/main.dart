@@ -18,14 +18,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // [추가] 익명으로라도 Firebase Auth에 로그인 시도
-  // Firestore 보안 규칙을 통과하기 위해 필요할 수 있음
-  try {
-    await FirebaseAuth.instance.signInAnonymously();
-  } catch (e) {
-    debugPrint("익명 로그인 실패 (무시 가능): $e");
-  }
-
   runApp(const MyApp());
 }
 
