@@ -789,7 +789,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Card(
       elevation: 3.0, // 그림자의 깊이 (숫자가 클수록 그림자가 진하고 넓어짐)
-      shadowColor: Colors.grey.withAlpha(125), // 그림자 색상 (연하게 해서 자연스럽게 연출)
+      shadowColor: Colors.grey.withAlpha(50), // 그림자 색상 (연하게 해서 자연스럽게 연출)
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
