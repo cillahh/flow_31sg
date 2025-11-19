@@ -466,18 +466,32 @@ class _HomeScreenState extends State<HomeScreen> {
       color: kPrimaryColor.withOpacity(0.05),
       clipBehavior: Clip.antiAlias,
       child: Padding(
-        padding: EdgeInsets.all(24.0 * Util.getScaleHeight(context)), // [수정]
+        padding: EdgeInsets.all(30.0 * Util.getScaleHeight(context)), // [수정]
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "하나님의 FLOW가 한동의 FLOW가 되길 소망하는, 기호 3번 FLOW",
-              style: TextStyle(
-                fontFamily: 'HelveticaRounded',
-                fontWeight: FontWeight.w700,
-                color: kPrimaryColor,
-                fontSize: 20 * Util.getScaleHeight(context), // [수정]
-              ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/logo_blue.png',
+                  width: 70 * Util.getScaleHeight(context),
+                ),
+                SizedBox(width: 12 * Util.getScaleHeight(context)),
+                Expanded(
+                  child: Text(
+                    "하나님의 FLOW가 한동의 FLOW가 되길 소망하는, 기호 3번 FLOW",
+                    style: TextStyle(
+                      fontFamily: 'HelveticaRounded',
+                      fontWeight: FontWeight.w700,
+                      color: kPrimaryColor,
+                      fontSize: 15,
+                    ),
+                    // softWrap: true, // 기본값이 true라 생략 가능
+                    // overflow: TextOverflow.visible, // 다 보여주기
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 16 * Util.getScaleHeight(context)), // [수정]
             SizedBox(
@@ -521,7 +535,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       height: 1.5,
                       color: Colors.black87,
-                      fontSize: 12 * Util.getScaleHeight(context),
+                      // fontSize: 15,
                     ),
                     maxLines: _isMissionExpanded ? null : 4,
                     overflow:
@@ -534,7 +548,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             // --- [더보기 / 접기 버튼] ---
-            // SizedBox(height: 8 * Util.getScaleHeight(context)), // 텍스트와 버튼 사이 간격
+            SizedBox(height: 5 * Util.getScaleHeight(context)), // 텍스트와 버튼 사이 간격
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -947,14 +961,14 @@ class _HomeScreenState extends State<HomeScreen> {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: isHighlighted ? Colors.white : Colors.black87,
-          fontSize: 15 * Util.getScaleHeight(context), // [수정]
+          fontSize: 15, // [수정]
         ),
       ),
       subtitle: Text(
         subtitle,
         style: TextStyle(
           color: isHighlighted ? Colors.white : Colors.black87,
-          fontSize: 12 * Util.getScaleHeight(context), // [수정]
+          fontSize: 12, // [수정]
         ),
       ),
       trailing: Icon(
