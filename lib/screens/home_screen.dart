@@ -487,8 +487,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: kPrimaryColor,
                       fontSize: 15,
                     ),
-                    // softWrap: true, // 기본값이 true라 생략 가능
-                    // overflow: TextOverflow.visible, // 다 보여주기
                   ),
                 ),
               ],
@@ -506,9 +504,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollAxis: Axis.horizontal,
                 // 가로로 흐름
                 crossAxisAlignment: CrossAxisAlignment.center,
-                blankSpace: 50.0,
+                blankSpace: 0.0,
                 // 텍스트가 한 바퀴 돌고 다음 텍스트가 나올 때까지의 여백
-                velocity: 50.0,
+                velocity: 30.0,
                 // 흐르는 속도 (클수록 빠름)
                 pauseAfterRound: const Duration(seconds: 1),
                 // 한 바퀴 돌고 잠시 멈춤
