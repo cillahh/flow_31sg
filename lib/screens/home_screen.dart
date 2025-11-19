@@ -890,7 +890,7 @@ class _HomeScreenState extends State<HomeScreen> {
               title,
               style: titleStyle?.copyWith(
                 fontSize:
-                    (titleStyle.fontSize ?? 22 * Util.getScaleHeight(context)), // [수정]
+                    (titleStyle.fontSize ?? 19 * Util.getScaleHeight(context)), // [수정]
               ),
             ),
             Text(
@@ -905,7 +905,7 @@ class _HomeScreenState extends State<HomeScreen> {
               description,
               style: descStyle?.copyWith(
                 fontSize:
-                    (descStyle.fontSize ?? 12.5), // [수정]
+                    (descStyle.fontSize ?? 11), // [수정]
               ),
             ),
           ],
