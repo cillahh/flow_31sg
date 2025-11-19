@@ -148,10 +148,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final Color primaryColor = kPrimaryColor;
     final Color backgroundColor = kBackgroundColor;
 
-    precacheImage(Image.asset("assets/iamges/mascot_accompaniment.gif").image, context);
-    precacheImage(Image.asset("assets/iamges/mascot_mission.gif").image, context);
-    precacheImage(Image.asset("assets/iamges/mascot_dbedience.gif").image, context);
-    precacheImage(Image.asset("assets/iamges/mascot_union.gif").image, context);
+    precacheImage(Image.asset("assets/images/mascot_accompaniment.gif").image, context);
+    precacheImage(Image.asset("assets/images/mascot_mission.gif").image, context);
+    precacheImage(Image.asset("assets/images/mascot_dbedience.gif").image, context);
+    precacheImage(Image.asset("assets/images/mascot_union.gif").image, context);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -582,18 +582,38 @@ class _HomeScreenState extends State<HomeScreen> {
               curve: Curves.easeInOut,
               child: Column(
                 children: [
-                  Text(
-                    "한동의 지난 30년은 하나님의 일하심의 역사였습니다. 이제 한동은 새로운 변화의 다음 30년을 준비하는 전환점에 서 있습니다.\n\n제31대 총학생회 후보 ‘FLOW’는 이 시기에 하나님께서 행하실 일을 “예비하고, 드러내며, 흘려보내는” 총학생회가 되고자 합니다. ‘FLOW’의 핵심은 하나님의 일하심을 준비하고, 드러내며, 흘려보내는 것입니다. 우리는 공동체의 연합을 통해 새로운 변화를 일으키며, 하나님의 때와 방법 속에서 한동의 정체성을 새롭게 세워갈 것입니다.",
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      height: 1.5,
-                      color: Colors.black87,
-                      fontSize: 13.5,
+                  ShaderMask(
+                    shaderCallback: (Rect bounds) {
+                      return LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        // [핵심 로직]
+                        // 접혀있을 때: 위쪽은 흰색(보임) -> 아래쪽은 투명(안보임)으로 그라데이션
+                        // 펼쳐졌을 때: 전체가 흰색(다 보임)
+                        colors: _isMissionExpanded
+                            ? [Colors.white, Colors.white]
+                            : [Colors.white, Colors.white, Colors.transparent],
+                        // 그라데이션 위치 조절 (0.0 ~ 1.0)
+                        // 접혀있을 때: 0% ~ 60%지점까지는 잘 보이다가, 그 이후부터 흐려짐
+                        stops: _isMissionExpanded
+                            ? [0.0, 1.0]
+                            : [0.0, 0.6, 1.0],
+                      ).createShader(bounds);
+                    },
+                    blendMode: BlendMode.dstIn,
+                    child: Text(
+                      "한동의 지난 30년은 하나님의 일하심의 역사였습니다. 이제 한동은 새로운 변화의 다음 30년을 준비하는 전환점에 서 있습니다.\n\n제31대 총학생회 후보 ‘FLOW’는 이 시기에 하나님께서 행하실 일을 “예비하고, 드러내며, 흘려보내는” 총학생회가 되고자 합니다. ‘FLOW’의 핵심은 하나님의 일하심을 준비하고, 드러내며, 흘려보내는 것입니다. \n\n우리는 공동체의 연합을 통해 새로운 변화를 일으키며, 하나님의 때와 방법 속에서 한동의 정체성을 새롭게 세워갈 것입니다.",
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        height: 1.5,
+                        color: Colors.black87,
+                        fontSize: 13.5,
+                      ),
+                      maxLines: _isMissionExpanded ? null : 5,
+                      overflow:
+                          _isMissionExpanded
+                              ? TextOverflow.visible
+                              : TextOverflow.ellipsis,
                     ),
-                    maxLines: _isMissionExpanded ? null : 4,
-                    overflow:
-                        _isMissionExpanded
-                            ? TextOverflow.visible
-                            : TextOverflow.ellipsis,
                   ),
                 ],
               ),
