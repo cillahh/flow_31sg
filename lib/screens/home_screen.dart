@@ -9,9 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:showcaseview/showcaseview.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../widgets/promo_video_player.dart';
+import 'package:marquee/marquee.dart';
 
 // [수정] StatelessWidget -> StatefulWidget
 class HomeScreen extends StatefulWidget {
@@ -22,7 +20,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  //HeroSection
   final PageController _pageController = PageController();
+  bool _isMissionExpanded = false;
+
   late final Timer _timer; // 자동 슬라이드를 위한 타이머
   int _currentPage = 0; // 현재 페이지 인덱스
 
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<String> _heroImages = [
     'https://firebasestorage.googleapis.com/v0/b/flow-7049f.firebasestorage.app/o/banner1.jpg?alt=media&token=bbdea87b-1bac-4373-b01f-6c3426c290fd',
-    'https://firebasestorage.googleapis.com/v0/b/flow-7049f.firebasestorage.app/o/banner2.jpg?alt=media&token=0e9d47cc-937a-421e-8998-abee0d3f0b67'
+    'https://firebasestorage.googleapis.com/v0/b/flow-7049f.firebasestorage.app/o/banner2.jpg?alt=media&token=0e9d47cc-937a-421e-8998-abee0d3f0b67',
   ];
 
   final String _showcaseKey = 'hasSeenAudioShowcase_vv0';
@@ -54,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+    _timer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       if (_heroImages.isEmpty) return; // 이미지가 없으면 타이머 작동 안 함
 
       if (_currentPage < _heroImages.length - 1) {
@@ -64,10 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
       }
 
       // 애니메이션 효과로 페이지 넘김
-      _pageController.animateToPage(
+      _pageController.jumpToPage(
         _currentPage,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeIn,
+        // duration: const Duration(milliseconds: 400),
+        // curve: Curves.easeIn,
       );
     });
   }
@@ -80,7 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
   //     debugPrint("언어 변경: ${_isKorean ? 'KOR' : 'ENG'}");
   //   });
   // }
-
 
   void _togglePlayPause() async {
     // (최초 클릭)
@@ -250,7 +250,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 _buildCategoryGrid(context),
                               ],
                             ),
-
                           ],
                         ),
                         Row(
@@ -410,28 +409,28 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           // 하단 인디케이터
-          Positioned(
-            bottom: 8 * Util.getScaleHeight(context),
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(_heroImages.length, (index) {
-                return Container(
-                  width: 6.0 * Util.getScaleHeight(context),
-                  height: 6.0 * Util.getScaleHeight(context),
-                  margin: EdgeInsets.symmetric(horizontal: 4.0 * Util.getScaleHeight(context)),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color:
-                        _currentPage == index
-                            ? Colors.white
-                            : Colors.white.withOpacity(0.4),
-                  ),
-                );
-              }),
-            ),
-          ),
+          // Positioned(
+          //   bottom: 8 * Util.getScaleHeight(context),
+          //   left: 0,
+          //   right: 0,
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: List.generate(_heroImages.length, (index) {
+          //       return Container(
+          //         width: 6.0 * Util.getScaleHeight(context),
+          //         height: 6.0 * Util.getScaleHeight(context),
+          //         margin: EdgeInsets.symmetric(horizontal: 4.0 * Util.getScaleHeight(context)),
+          //         decoration: BoxDecoration(
+          //           shape: BoxShape.circle,
+          //           color:
+          //               _currentPage == index
+          //                   ? Colors.white
+          //                   : Colors.white.withOpacity(0.4),
+          //         ),
+          //       );
+          //     }),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -450,7 +449,7 @@ class _HomeScreenState extends State<HomeScreen> {
           placeholder: AssetImage('assets/images/placeholder.gif'),
           // 1x1 투명 플레이스홀더
           image: NetworkImage(
-            'https://firebasestorage.googleapis.com/v0/b/flow-7049f.firebasestorage.app/o/mainLogo.jpg?alt=media&token=05471e85-cfe0-4984-8af0-4e2d04d00acb'
+            'https://firebasestorage.googleapis.com/v0/b/flow-7049f.firebasestorage.app/o/mainLogo.jpg?alt=media&token=05471e85-cfe0-4984-8af0-4e2d04d00acb',
           ),
           fit: BoxFit.cover,
           fadeInDuration: const Duration(milliseconds: 200),
@@ -481,24 +480,87 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(height: 16 * Util.getScaleHeight(context)), // [수정]
-            Text(
-              "“내가 주는 물을 마시는 자는 영원히 목마르지 아니하리니 내가 주는 물은 그 속에서 영생하도록 솟아나는 샘물이 되리라” (요한복음 4:14)",
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontStyle: FontStyle.italic,
-                color: Colors.black54,
-                height: 1.5,
+            SizedBox(
+              height: 24 * Util.getScaleHeight(context), // [중요] 흐르는 텍스트의 높이 제한
+              child: Marquee(
+                text:
+                    "“내가 주는 물을 마시는 자는 영원히 목마르지 아니하리니 내가 주는 물은 그 속에서 영생하도록 솟아나는 샘물이 되리라” (요한복음 4:14)",
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontStyle: FontStyle.italic,
+                  color: Colors.black54,
+                ),
+                scrollAxis: Axis.horizontal,
+                // 가로로 흐름
+                crossAxisAlignment: CrossAxisAlignment.center,
+                blankSpace: 50.0,
+                // 텍스트가 한 바퀴 돌고 다음 텍스트가 나올 때까지의 여백
+                velocity: 50.0,
+                // 흐르는 속도 (클수록 빠름)
+                pauseAfterRound: const Duration(seconds: 1),
+                // 한 바퀴 돌고 잠시 멈춤
+                startPadding: 10.0,
+                // 시작할 때 약간의 여백
+                accelerationDuration: const Duration(seconds: 1),
+                // 처음에 부드럽게 출발
+                accelerationCurve: Curves.linear,
+                decelerationDuration: const Duration(milliseconds: 500),
+                decelerationCurve: Curves.easeOut,
               ),
             ),
             SizedBox(height: 16 * Util.getScaleHeight(context)), // [수정]
             const Divider(height: 1),
             SizedBox(height: 16 * Util.getScaleHeight(context)), // [수정]
-            Text(
-              "한동의 지난 30년은 하나님의 일하심의 역사였습니다. 이제 한동은 새로운 변화의 다음 30년을 준비하는 전환점에 서 있습니다.\n\n제31대 총학생회 후보 ‘FLOW’는 이 시기에 하나님께서 행하실 일을 “예비하고, 드러내며, 흘려보내는” 총학생회가 되고자 합니다. ‘FLOW’의 핵심은 하나님의 일하심을 준비하고, 드러내며, 흘려보내는 것입니다. 우리는 공동체의 연합을 통해 새로운 변화를 일으키며, 하나님의 때와 방법 속에서 한동의 정체성을 새롭게 세워갈 것입니다.",
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                height: 1.5,
-                color: Colors.black87,
-                fontSize: 12 * Util.getScaleHeight(context),
-              ), // [수정]
+            AnimatedSize(
+              // 부드럽게 열리고 닫히는 애니메이션 효과
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              child: Column(
+                children: [
+                  Text(
+                    "한동의 지난 30년은 하나님의 일하심의 역사였습니다. 이제 한동은 새로운 변화의 다음 30년을 준비하는 전환점에 서 있습니다.\n\n제31대 총학생회 후보 ‘FLOW’는 이 시기에 하나님께서 행하실 일을 “예비하고, 드러내며, 흘려보내는” 총학생회가 되고자 합니다. ‘FLOW’의 핵심은 하나님의 일하심을 준비하고, 드러내며, 흘려보내는 것입니다. 우리는 공동체의 연합을 통해 새로운 변화를 일으키며, 하나님의 때와 방법 속에서 한동의 정체성을 새롭게 세워갈 것입니다.",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      height: 1.5,
+                      color: Colors.black87,
+                      fontSize: 12 * Util.getScaleHeight(context),
+                    ),
+                    maxLines: _isMissionExpanded ? null : 4,
+                    overflow:
+                        _isMissionExpanded
+                            ? TextOverflow.visible
+                            : TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+
+            // --- [더보기 / 접기 버튼] ---
+            // SizedBox(height: 8 * Util.getScaleHeight(context)), // 텍스트와 버튼 사이 간격
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isMissionExpanded = !_isMissionExpanded; // 상태 토글
+                });
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center, // 버튼 중앙 정렬
+                children: [
+                  Text(
+                    _isMissionExpanded ? "접기" : "더 보기",
+                    style: TextStyle(
+                      fontSize: 12 * Util.getScaleHeight(context),
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Icon(
+                    _isMissionExpanded
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down,
+                    color: Colors.grey,
+                    size: 18 * Util.getScaleHeight(context),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -877,7 +939,7 @@ class _HomeScreenState extends State<HomeScreen> {
       leading: Icon(
         icon,
         color: contentColor,
-        size:33 * Util.getScaleHeight(context),
+        size: 33 * Util.getScaleHeight(context),
       ),
       // [수정]
       title: Text(
