@@ -148,6 +148,11 @@ class _HomeScreenState extends State<HomeScreen> {
     final Color primaryColor = kPrimaryColor;
     final Color backgroundColor = kBackgroundColor;
 
+    precacheImage(Image.asset("assets/iamges/mascot_accompaniment.gif").image, context);
+    precacheImage(Image.asset("assets/iamges/mascot_mission.gif").image, context);
+    precacheImage(Image.asset("assets/iamges/mascot_dbedience.gif").image, context);
+    precacheImage(Image.asset("assets/iamges/mascot_union.gif").image, context);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: backgroundColor,
@@ -482,7 +487,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // --- 1. 로고 섹션 (메인 로고) ---
   Widget _buildLogoSection(BuildContext context) {
-    const double imageAspectRatio = 12 / 5;
+    const double imageAspectRatio = 665 / 297;
     return AspectRatio(
       aspectRatio: imageAspectRatio,
       child: Card(
@@ -763,6 +768,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ).textTheme.bodyMedium?.copyWith(color: Colors.black54);
 
     return Card(
+      elevation: 3.0, // 그림자의 깊이 (숫자가 클수록 그림자가 진하고 넓어짐)
+      shadowColor: Colors.grey.withAlpha(125), // 그림자 색상 (연하게 해서 자연스럽게 연출)
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
@@ -812,7 +819,7 @@ class _HomeScreenState extends State<HomeScreen> {
           description:
               "하나님의 일하심이 한동인의 삶에 깊이 스며들길 소망합니다. 신앙이 생활이 되고, 배움이 예배가 되는 공동체를 세우겠습니다.",
         ),
-        SizedBox(height: 16 * Util.getScaleHeight(context)), // [수정]
+        SizedBox(height: 8 * Util.getScaleHeight(context)), // [수정]
         _buildVisionCard(
           context,
           title: "FLOW in Handong",
@@ -820,7 +827,7 @@ class _HomeScreenState extends State<HomeScreen> {
           description:
               "한동의 시작처럼, 하나님께서 주신 흐름이 캠퍼스 안에 계속되길 바랍니다. 갈대상자가 물결에 흘러 하나님의 계획을 이뤘듯, 우리의 삶도 순종의 흐름이 되길 바랍니다. 그 속에서 서로를 존중하고 세워주는 공동체 문화를 만들어가겠습니다.",
         ),
-        SizedBox(height: 16 * Util.getScaleHeight(context)), // [수정]
+        SizedBox(height: 8 * Util.getScaleHeight(context)), // [수정]
         _buildVisionCard(
           context,
           title: "FLOW in All Fields",
@@ -851,8 +858,9 @@ class _HomeScreenState extends State<HomeScreen> {
     ).textTheme.bodyMedium?.copyWith(height: 1.3, color: Colors.black87);
 
     return Card(
+      elevation: 0.0, // 그림자의 깊이 (숫자가 클수록 그림자가 진하고 넓어짐)
+      shadowColor: Colors.grey.withAlpha(50), // 그림자 색상 (연하게 해서 자연스럽게 연출)
       clipBehavior: Clip.antiAlias,
-      elevation: 1,
       child: Padding(
         padding: EdgeInsets.all(10.0 * Util.getScaleHeight(context)), // [수정]
         child: Column(
@@ -862,25 +870,22 @@ class _HomeScreenState extends State<HomeScreen> {
               title,
               style: titleStyle?.copyWith(
                 fontSize:
-                    (titleStyle.fontSize ?? 22) *
-                    Util.getScaleHeight(context), // [수정]
+                    (titleStyle.fontSize ?? 22 * Util.getScaleHeight(context)), // [수정]
               ),
             ),
             Text(
               subtitle,
               style: subtitleStyle?.copyWith(
                 fontSize:
-                    (subtitleStyle.fontSize ?? 12) *
-                    Util.getScaleHeight(context), // [수정]
+                    (subtitleStyle.fontSize ?? 12), // [수정]
               ),
             ),
-            SizedBox(height: 16 * Util.getScaleHeight(context)), // [수정]
+            SizedBox(height: 14 * Util.getScaleHeight(context)), // [수정]
             Text(
               description,
               style: descStyle?.copyWith(
                 fontSize:
-                    (descStyle.fontSize ?? 12) *
-                    Util.getScaleHeight(context), // [수정]
+                    (descStyle.fontSize ?? 12.5), // [수정]
               ),
             ),
           ],
