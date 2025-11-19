@@ -179,132 +179,172 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: [
           // 1. 기존 스크롤 콘텐츠 (맨 아래)
-          SingleChildScrollView(
-            key: _scrollKey, // 스크롤 키
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(height: 70 * Util.getScaleHeight(context)),
-                MobileLayoutWrapper(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.0 * Util.getScaleHeight(context),
-                    ),
-                    // [유지] 너비 간격
+          Column(
+            children: [
+              Container(height: 80 * Util.getScaleHeight(context),
+                color: Colors.transparent
+              ),
+              // 상단 여백 (필요 시 유지)
+              Expanded(
+                child: ShaderMask(
+                  shaderCallback: (Rect bounds) {
+                    return const LinearGradient(
+                      begin: Alignment.topCenter, // 위에서
+                      end: Alignment.bottomCenter, // 아래로
+                      colors: [
+                        Colors.transparent, // 1. 맨 위는 투명하게 (안 보임)
+                        Colors.white, // 2. 조금 내려오면 불투명하게 (보임)
+                        Colors.white, // 3. 끝까지 불투명
+                      ],
+                      // [조절] 0.0에서 0.05(5%) 구간 동안 서서히 나타남
+                      stops: [0.0, 0.05, 1.0],
+                    ).createShader(bounds);
+                  },
+                  blendMode: BlendMode.dstIn,
+                  child: SingleChildScrollView(
+                    key: _scrollKey, // 스크롤 키
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        SizedBox(height: 10 * Util.getScaleHeight(context)),
-                        // [유지] 높이 간격
-                        _buildHeroSection(context),
-                        SizedBox(height: 20 * Util.getScaleHeight(context)),
-                        _buildMissionSection(context),
-                        SizedBox(height: 20 * Util.getScaleHeight(context)),
-                        // [유지] 높이 간격
-                        Stack(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                        MobileLayoutWrapper(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16.0 * Util.getScaleHeight(context),
+                            ),
+                            // [유지] 너비 간격
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Row(
+                                SizedBox(height: 10 * Util.getScaleHeight(context)),
+                                _buildLogoSection(context),
+                                SizedBox(
+                                  height: 6 * Util.getScaleHeight(context),
+                                ),
+                                _buildMissionSection(context),
+                                SizedBox(
+                                  height: 20 * Util.getScaleHeight(context),
+                                ),
+                                // [유지] 높이 간격
+                                Stack(
                                   children: [
-                                    _buildSectionTitle(
-                                      context,
-                                      "🌊 FLOW 소식",
-                                      "캠프의 최신 소식을 확인하세요.",
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            _buildSectionTitle(
+                                              context,
+                                              "🌊 FLOW 소식",
+                                              "캠프의 최신 소식을 확인하세요.",
+                                            ),
+                                          ],
+                                        ),
+                                        _buildLinksCard(context),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Image.asset(
+                                          // [수정] getScaleWidth -> getScaleHeight
+                                          height:
+                                              90 * Util.getScaleHeight(context),
+                                          'assets/images/flongnews.png',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                                _buildLinksCard(context),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Image.asset(
-                                  // [수정] getScaleWidth -> getScaleHeight
-                                  height: 90 * Util.getScaleHeight(context),
-                                  'assets/images/flongnews.png',
-                                  fit: BoxFit.cover,
+                                // SizedBox(height: 30 * Util.getScaleHeight(context)),
+                                // _buildLogoSection(context),
+                                SizedBox(
+                                  height: 30 * Util.getScaleHeight(context),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        // SizedBox(height: 30 * Util.getScaleHeight(context)),
-                        // _buildLogoSection(context),
-                        SizedBox(height: 30 * Util.getScaleHeight(context)),
-                        // [유지] 높이 간격
+                                // [유지] 높이 간격
 
-                        // [유지] 높이 간격
-                        Stack(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                _buildSectionTitle(
-                                  context,
-                                  "🌊 FLOW의 4대 가치",
-                                  "하나님의 일하심이 흘러가는 4가지 통로",
+                                // [유지] 높이 간격
+                                Stack(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        _buildSectionTitle(
+                                          context,
+                                          "🌊 FLOW의 4대 가치",
+                                          "하나님의 일하심이 흘러가는 4가지 통로",
+                                        ),
+                                        _buildCategoryGrid(context),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                _buildCategoryGrid(context),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      '  *가치 카드를 터치해 보세요!',
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodySmall?.copyWith(
+                                        color: kPrimaryColor,
+                                        fontSize: 10,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 30 * Util.getScaleHeight(context),
+                                ),
+                                // [유지] 높이 간격
+                                Stack(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        _buildSectionTitle(
+                                          context,
+                                          "🌊 FLOW의 3대 비전",
+                                          "우리의 삶과 공동체 가운데 흘러갈 비전",
+                                        ),
+                                        _buildVisionSection(context),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Image.asset(
+                                          // [수정] getScaleWidth -> getScaleHeight
+                                          height:
+                                              80 * Util.getScaleHeight(context),
+                                          'assets/images/flong.png',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 30 * Util.getScaleHeight(context),
+                                ),
+                                // [유지] 높이 간격
+                                // _buildPledgeTestCard(context),
+                                // SizedBox(height: 30 * Util.getScaleHeight(context)), // [유지] 높이 간격
                               ],
                             ),
-                          ],
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              '  *가치 카드를 터치해 보세요!',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodySmall?.copyWith(
-                                color: kPrimaryColor,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 30 * Util.getScaleHeight(context)),
-                        // [유지] 높이 간격
-                        Stack(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                _buildSectionTitle(
-                                  context,
-                                  "🌊 FLOW의 3대 비전",
-                                  "우리의 삶과 공동체 가운데 흘러갈 비전",
-                                ),
-                                _buildVisionSection(context),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Image.asset(
-                                  // [수정] getScaleWidth -> getScaleHeight
-                                  height: 80 * Util.getScaleHeight(context),
-                                  'assets/images/flong.png',
-                                  fit: BoxFit.cover,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 30 * Util.getScaleHeight(context)),
-                        // [유지] 높이 간격
-                        // _buildPledgeTestCard(context),
-                        // SizedBox(height: 30 * Util.getScaleHeight(context)), // [유지] 높이 간격
+                        _buildFooter(context, primaryColor),
+                        SizedBox(height: 70 * Util.getScaleHeight(context),)
                       ],
                     ),
                   ),
                 ),
-                _buildFooter(context, primaryColor),
-              ],
-            ),
+              ),
+            ],
           ),
 
           // 2. 뒷배경 어둡게 처리 (Dimming Layer)
@@ -317,6 +357,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.black.withOpacity(0.5), // 30% 불투명
               ),
             ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _buildHeroSection(context), // ★ 여기에 배치하여 고정
+            ],
           ),
 
           // 3. [수정] 이스터에그 마스코트 (AnimatedScale 사용)
@@ -351,9 +397,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // SizedBox 대신 비율 유지 위젯 사용
         aspectRatio: imageAspectRatio,
         child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6.0),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
           clipBehavior: Clip.antiAlias,
           elevation: 0,
           color: Colors.transparent,
@@ -380,7 +424,7 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (context, index) {
               return Card(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6.0),
+                  borderRadius: BorderRadius.circular(0),
                 ),
                 clipBehavior: Clip.antiAlias,
                 elevation: 0,
@@ -438,10 +482,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // --- 1. 로고 섹션 (메인 로고) ---
   Widget _buildLogoSection(BuildContext context) {
-    const double imageAspectRatio = 600 / 90;
+    const double imageAspectRatio = 12 / 5;
     return AspectRatio(
       aspectRatio: imageAspectRatio,
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            10 * Util.getScaleHeight(context),
+          ), //
+        ),
         clipBehavior: Clip.antiAlias,
         elevation: 0,
         color: Colors.transparent, // 흰색 배경에 카드 그림자가 없도록
@@ -449,7 +498,7 @@ class _HomeScreenState extends State<HomeScreen> {
           placeholder: AssetImage('assets/images/placeholder.gif'),
           // 1x1 투명 플레이스홀더
           image: NetworkImage(
-            'https://firebasestorage.googleapis.com/v0/b/flow-7049f.firebasestorage.app/o/mainLogo.jpg?alt=media&token=05471e85-cfe0-4984-8af0-4e2d04d00acb',
+            'https://firebasestorage.googleapis.com/v0/b/flow-7049f.firebasestorage.app/o/photo.png?alt=media&token=364222d2-9cbf-46a8-8349-b53f36544a8c'
           ),
           fit: BoxFit.cover,
           fadeInDuration: const Duration(milliseconds: 200),
@@ -519,9 +568,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 decelerationCurve: Curves.easeOut,
               ),
             ),
-            SizedBox(height: 16 * Util.getScaleHeight(context)), // [수정]
+            SizedBox(height: 20 * Util.getScaleHeight(context)), // [수정]
             const Divider(height: 1),
-            SizedBox(height: 16 * Util.getScaleHeight(context)), // [수정]
+            SizedBox(height: 20 * Util.getScaleHeight(context)), // [수정]
             AnimatedSize(
               // 부드럽게 열리고 닫히는 애니메이션 효과
               duration: const Duration(milliseconds: 300),
@@ -533,7 +582,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       height: 1.5,
                       color: Colors.black87,
-                      // fontSize: 15,
+                      fontSize: 13.5,
                     ),
                     maxLines: _isMissionExpanded ? null : 4,
                     overflow:
